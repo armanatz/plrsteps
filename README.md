@@ -1,6 +1,9 @@
-# Web frontend day at the office - Poalrtseps 2022
+# Web frontend day at the office - Polarsteps 2022
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+First, install deps by:
+`yarn`
 
 ## Available Scripts
 
