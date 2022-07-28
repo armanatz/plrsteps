@@ -1,9 +1,38 @@
-import Map, { Marker } from "react-map-gl";
+import Map, { Marker, Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./style.css";
 
 function TripMap({ allSteps }) {
     const markers = allSteps.filter((step) => Object.hasOwn(step, "supertype"));
+
+    const geojson = {
+        type: "FeatureCollection",
+        features: [
+            {
+                type: "Feature",
+                geometry: {
+                    type: "LineString",
+                    coordinates: allSteps.map((step) => [
+                        step.location.lon,
+                        step.location.lat,
+                    ]),
+                },
+            },
+        ],
+    };
+
+    const layerStyle = {
+        id: "point",
+        type: "line",
+        layout: {
+            "line-join": "round",
+            "line-cap": "round",
+        },
+        paint: {
+            "line-color": "#fff",
+            "line-width": 2,
+        },
+    };
 
     return (
         <div className="trip-map">
@@ -26,6 +55,9 @@ function TripMap({ allSteps }) {
                         />
                     </Marker>
                 ))}
+                <Source id="tripRoute" type="geojson" data={geojson}>
+                    <Layer {...layerStyle} />
+                </Source>
             </Map>
         </div>
     );
