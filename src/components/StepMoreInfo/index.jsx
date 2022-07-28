@@ -52,18 +52,27 @@ function StepMoreInfo({ step, onClose }) {
                     </h3>
 
                     {step.description && <p>{step.description}</p>}
-                    <h4>Things to do in {step.location.name}:</h4>
-                    <div
-                        style={{
-                            overflow: "scroll",
-                            height: "72vh",
-                            overflowX: "hidden",
-                        }}
-                    >
-                        {interestingPlaces.map((place) => {
-                            return <Place key={place.place_id} data={place} />;
-                        })}
-                    </div>
+                    {interestingPlaces.length > 0 ? (
+                        <>
+                            <h4>Things to do in {step.location.name}:</h4>
+                            <div
+                                style={{
+                                    overflow: "scroll",
+                                    height: "65vh",
+                                    overflowX: "hidden",
+                                }}
+                            >
+                                {interestingPlaces.map((place) => {
+                                    return (
+                                        <Place
+                                            key={place.place_id}
+                                            data={place}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
                     {renderMap()}
                 </>
             </div>
