@@ -1,9 +1,33 @@
+import { useCallback, useEffect, useState } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./style.css";
 
 function TripMap({ allSteps }) {
     const markers = allSteps.filter((step) => Object.hasOwn(step, "supertype"));
+
+    const [mapNode, setMapNode] = useState(null);
+
+    const mapRef = useCallback((node) => {
+        if (node !== null) {
+            setMapNode(node);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (mapNode) {
+            mapNode.fitBounds(
+                [
+                    [markers[0].location.lon, markers[0].location.lat],
+                    [
+                        markers[markers.length - 1].location.lon,
+                        markers[markers.length - 1].location.lat,
+                    ],
+                ],
+                { padding: 250, duration: 10 }
+            );
+        }
+    }, [mapNode, markers]);
 
     const geojson = {
         type: "FeatureCollection",
@@ -36,7 +60,7 @@ function TripMap({ allSteps }) {
 
     return (
         <div className="trip-map">
-            <Map mapStyle="mapbox://styles/mapbox/satellite-v9">
+            <Map ref={mapRef} mapStyle="mapbox://styles/mapbox/satellite-v9">
                 {markers.map((marker) => (
                     <Marker
                         key={marker.id}
