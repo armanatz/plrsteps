@@ -4,6 +4,7 @@ import TripMap from "../../components/TripMap";
 import { useLoadScript } from "@react-google-maps/api";
 import { useParams } from "react-router-dom";
 import { getTripById } from "../../api/trips.api";
+import { StepProvider } from "../../contexts/StepContext";
 import "./style.css";
 
 const MAP_LIBRARIES = ["places"];
@@ -22,12 +23,14 @@ export default function TripPage() {
             {isGMapScriptLoaded && isLoading && <div>Loading...</div>}
             {trip && (
                 <div className="trip-page">
-                    <div className="trip-page__sidebar">
-                        <Trip trip={trip} />
-                    </div>
-                    <div className="trip-page__main">
-                        <TripMap allSteps={trip.all_steps} />
-                    </div>
+                    <StepProvider>
+                        <div className="trip-page__sidebar">
+                            <Trip trip={trip} />
+                        </div>
+                        <div className="trip-page__main">
+                            <TripMap allSteps={trip.all_steps} />
+                        </div>
+                    </StepProvider>
                 </div>
             )}
         </>
