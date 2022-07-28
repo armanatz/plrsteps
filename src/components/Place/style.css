@@ -1,0 +1,40 @@
+.place-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+
+.place-info-base {
+  display: flex;
+  align-items: center;
+}
+
+.place-info-line {
+  justify-content: space-between;
+}
+
+.place-name {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.place-img-container {
+  height: 300px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.place-img {
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

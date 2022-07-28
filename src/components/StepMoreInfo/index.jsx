@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { getStepName } from "../../utils/step-utils";
 import PSButton from "../PSButton";
+import Place from "../Place";
 import "./style.css";
 
 /**
@@ -52,6 +53,17 @@ function StepMoreInfo({ step, onClose }) {
 
                     {step.description && <p>{step.description}</p>}
                     <h4>Things to do in {step.location.name}:</h4>
+                    <div
+                        style={{
+                            overflow: "scroll",
+                            height: "72vh",
+                            overflowX: "hidden",
+                        }}
+                    >
+                        {interestingPlaces.map((place) => {
+                            return <Place key={place.place_id} data={place} />;
+                        })}
+                    </div>
                     {renderMap()}
                 </>
             </div>
