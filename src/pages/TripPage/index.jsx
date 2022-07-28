@@ -18,7 +18,7 @@ export default function TripPage() {
                         <Trip trip={trip} />
                     </div>
                     <div className="trip-page__main">
-                        <TripMap />
+                        <TripMap allSteps={trip.all_steps} />
                     </div>
                 </div>
             )}
