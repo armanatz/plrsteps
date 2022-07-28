@@ -1,6 +1,6 @@
-import Step from "components/Step";
-import { getNormalSteps } from "utils/trip-utils";
-import StepMoreInfo from "components/StepMoreInfo";
+import Step from "../Step";
+import { getNormalSteps } from "../../utils/trip-utils";
+import StepMoreInfo from "../StepMoreInfo";
 import TripHeader from "./TripHeader";
 import { useState } from "react";
 import "./style.css";

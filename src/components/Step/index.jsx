@@ -1,5 +1,5 @@
-import { getStepName } from "utils/step-utils";
-import PSButton from "components/PSButton";
+import { getStepName } from "../../utils/step-utils";
+import PSButton from "../PSButton";
 import "./style.css";
 
 /**

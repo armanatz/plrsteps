@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Trip from "components/Trip";
-import TripMap from "components/TripMap";
+import Trip from "../../components/Trip";
+import TripMap from "../../components/TripMap";
 import { useParams } from "react-router-dom";
-import { getTripById } from "api/trips.api";
+import { getTripById } from "../../api/trips.api";
 import "./style.css";
 
 export default function TripPage() {

@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import "utils/type-defs";
+import "./utils/type-defs";
 import "./index.css";
 import App from "./App";
 
