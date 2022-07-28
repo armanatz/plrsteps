@@ -1,3 +1,5 @@
+import { useCallback, useState } from "react";
+import { GoogleMap } from "@react-google-maps/api";
 import { getStepName } from "../../utils/step-utils";
 import PSButton from "../PSButton";
 import "./style.css";
@@ -8,6 +10,33 @@ import "./style.css";
  * @param {() => void} props.onClose
  */
 function StepMoreInfo({ step, onClose }) {
+    const [interestingPlaces, setInterestingPlaces] = useState([]);
+
+    const onLoad = useCallback(
+        (mapInstance) => {
+            const location = new window.google.maps.LatLng(
+                step.location.lat,
+                step.location.lon
+            );
+            const request = { location, radius: 100 };
+            const service = new window.google.maps.places.PlacesService(
+                mapInstance
+            );
+            service.nearbySearch(request, (results, status) => {
+                if (
+                    status === window.google.maps.places.PlacesServiceStatus.OK
+                ) {
+                    setInterestingPlaces(results.map((place) => place));
+                }
+            });
+        },
+        [step]
+    );
+
+    const renderMap = () => {
+        return <GoogleMap onLoad={onLoad} />;
+    };
+
     return (
         <div className="step-more-info">
             <div className="step-more-info__content">
@@ -22,7 +51,8 @@ function StepMoreInfo({ step, onClose }) {
                     </h3>
 
                     {step.description && <p>{step.description}</p>}
-                    <div>TODO: interesting things to do</div>
+                    <h4>Things to do in {step.location.name}:</h4>
+                    {renderMap()}
                 </>
             </div>
         </div>
