@@ -2,7 +2,8 @@ import Step from "../Step";
 import { getNormalSteps } from "../../utils/trip-utils";
 import StepMoreInfo from "../StepMoreInfo";
 import TripHeader from "./TripHeader";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import StepContext from "../../contexts/StepContext";
 import "./style.css";
 
 /**
@@ -13,6 +14,8 @@ function Trip({ trip }) {
     /** @type {[Step, React.Dispatch<Step>]} */
     const [openStep, setOpenStep] = useState(null);
 
+    const { setCurrentStep } = useContext(StepContext);
+
     return (
         <>
             <TripHeader trip={trip} />
@@ -21,14 +24,20 @@ function Trip({ trip }) {
                     <Step
                         step={step}
                         key={step.id}
-                        onOpen={() => setOpenStep(step)}
+                        onOpen={() => {
+                            setCurrentStep(step);
+                            return setOpenStep(step);
+                        }}
                     />
                 ))}
             </div>
             {openStep && (
                 <StepMoreInfo
                     step={openStep}
-                    onClose={() => setOpenStep(null)}
+                    onClose={() => {
+                        setCurrentStep(null);
+                        return setOpenStep(null);
+                    }}
                 />
             )}
         </>
